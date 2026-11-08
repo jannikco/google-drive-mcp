@@ -1,325 +1,62 @@
 {
   "schemaVersion": 1,
+  "id": "google-drive-mcp",
+  "kind": "provider-connector",
+  "product": "pipmcp",
+  "title": "Google Drive MCP server",
+  "description": "Use Google Drive with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
   "status": "ready",
   "verification": "mock-only",
   "releaseEligible": true,
+  "operationIds": [],
   "maintainer": "jannikco",
   "license": "MIT",
-  "sourceRevision": "75147c61a6a6cbb10fcaee245b7d2f69c07b99fe02abd186182811865eedb3f2",
+  "attributionSlug": "github-google-drive-mcp",
+  "sourceRevision": "9639e0ff30f36ee126c50c43050c581ba1bf5a6f3121500c55c0bc88f0a7a6c0",
+  "qualityVersion": 2,
+  "artifactType": "connector",
   "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
   "provenance": [
     "https://developers.google.com/workspace/drive/api/reference/rest/v3/files",
     "https://developers.google.com/identity/protocols/oauth2/native-app",
     "https://developers.google.com/workspace/drive/api/reference/rest/v3/files/list"
   ],
-  "id": "google-drive-mcp",
-  "kind": "provider-connector",
-  "product": "pipmcp",
-  "title": "Google Drive MCP server",
-  "description": "Search available file metadata and inspect a chosen document before requesting its contents.",
-  "operationIds": [
-    "list_files",
-    "get_file_metadata"
-  ],
+  "utility": {
+    "problem": "Search available file metadata and inspect a chosen document before requesting its contents.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
+  },
   "appSlug": "google-drive",
   "appName": "Google Drive",
-  "providerDocs": "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-  "providerWebsite": "https://drive.google.com/",
-  "authentication": {
-    "type": "oauth2_authorization_code",
-    "requiredCredentialFields": [
-      "client_id",
-      "client_secret",
-      "owner_authorization"
-    ],
-    "settings": {
-      "scopes": "https://www.googleapis.com/auth/drive",
-      "authorization_url": "https://accounts.google.com/o/oauth2/auth",
-      "token_url": "https://oauth2.googleapis.com/token"
-    },
-    "requiredHeaderNames": [],
-    "helpUrl": "https://developers.google.com/workspace/guides/create-credentials",
-    "tenantRequired": false,
-    "accountParameterNames": []
-  },
-  "attributionSlug": "github-google-drive-mcp",
-  "artifactType": "connector",
-  "qualityVersion": 2,
   "connectorId": "google-drive",
-  "connector": {
-    "id": "google-drive",
-    "name": "Google Drive",
-    "version": "0.2.0",
-    "baseUrl": "https://www.googleapis.com/drive/v3",
-    "auth": {
-      "type": "oauth-access-token",
-      "env": "GOOGLE_DRIVE_ACCESS_TOKEN"
-    },
-    "tools": [
-      {
-        "name": "list_files",
-        "description": "List file metadata accessible to the authorized user.",
-        "method": "GET",
-        "path": "/files",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "pageSize": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 1000
-            },
-            "pageToken": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            },
-            "q": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            },
-            "fields": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {
-            "pageSize": "pageSize",
-            "pageToken": "pageToken",
-            "q": "q",
-            "fields": "fields"
-          },
-          "body": {}
-        },
-        "sampleArguments": {
-          "pageSize": 10,
-          "fields": "nextPageToken,files(id,name,mimeType)"
-        },
-        "provenance": [
-          "https://developers.google.com/workspace/drive/api/reference/rest/v3/files/list"
-        ],
-        "pagination": {
-          "type": "cursor",
-          "cursorInput": "pageToken",
-          "nextCursorPath": "nextPageToken"
-        }
-      },
-      {
-        "name": "get_file_metadata",
-        "description": "Read a chosen file’s metadata; does not download file contents.",
-        "method": "GET",
-        "path": "/files/{fileId}",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "fileId": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            },
-            "fields": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            }
-          },
-          "required": [
-            "fileId"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [
-            "fileId"
-          ],
-          "query": {
-            "fields": "fields"
-          },
-          "body": {}
-        },
-        "sampleArguments": {
-          "fileId": "file-id-from-list",
-          "fields": "id,name,mimeType"
-        },
-        "provenance": [
-          "https://developers.google.com/workspace/drive/api/reference/rest/v3/files/get"
-        ]
-      }
-    ],
-    "workflow": {
-      "name": "Shared document discovery",
-      "description": "Search available file metadata and inspect a chosen document before requesting its contents.",
-      "steps": [
-        "list_files",
-        "get_file_metadata"
-      ]
-    },
-    "provenance": [
-      "https://developers.google.com/workspace/drive/api/reference/rest/v3/files",
-      "https://developers.google.com/identity/protocols/oauth2/native-app",
-      "https://developers.google.com/workspace/drive/api/reference/rest/v3/files/list"
-    ],
-    "verification": "mock-only",
-    "providerLiveValidation": "not-run",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "list_files",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "get_file_metadata",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "list_files",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "get_file_metadata",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "requiredScopes": [
-      "https://www.googleapis.com/auth/drive.metadata.readonly"
-    ],
-    "oauth": {
-      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
-      "tokenUrl": "https://oauth2.googleapis.com/token",
-      "pkce": true,
-      "redirectPort": 42813,
-      "authorizationParams": {
-        "access_type": "offline",
-        "prompt": "consent"
-      },
-      "clientIdEnv": "GOOGLE_DRIVE_CLIENT_ID",
-      "clientSecretEnv": "GOOGLE_DRIVE_CLIENT_SECRET",
-      "scopeEnv": "GOOGLE_DRIVE_OAUTH_SCOPES",
-      "scopes": [
-        "https://www.googleapis.com/auth/drive.metadata.readonly"
-      ]
-    },
-    "setup": {
-      "instructions": "Enable Google Drive API and create your own Desktop OAuth client. Set GOOGLE_DRIVE_CLIENT_ID; optionally set GOOGLE_DRIVE_CLIENT_SECRET if supplied by your client configuration. Native loopback callback is http://127.0.0.1:42813/callback. Consent scopes cover only file metadata reads. Enable your own app consent/test users as required. No PipMCP account is needed."
-    },
-    "repoId": "google-drive-mcp",
-    "appSlug": "google-drive",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "75147c61a6a6cbb10fcaee245b7d2f69c07b99fe02abd186182811865eedb3f2",
-    "authentication": {
-      "type": "oauth2_authorization_code",
-      "requiredCredentialFields": [
-        "client_id",
-        "client_secret",
-        "owner_authorization"
-      ],
-      "settings": {
-        "scopes": "https://www.googleapis.com/auth/drive",
-        "authorization_url": "https://accounts.google.com/o/oauth2/auth",
-        "token_url": "https://oauth2.googleapis.com/token"
-      },
-      "requiredHeaderNames": [],
-      "helpUrl": "https://developers.google.com/workspace/guides/create-credentials",
-      "tenantRequired": false,
-      "accountParameterNames": []
-    },
-    "managedAvailability": {
-      "status": "listed",
-      "checkedAt": "2026-11-08T12:29:10.433747+00:00"
-    }
-  },
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "list_files",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "get_file_metadata",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "list_files",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "get_file_metadata",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
-  },
-  "utility": {
-    "problem": "Search available file metadata and inspect a chosen document before requesting its contents.",
-    "output": "Actual provider API results through local MCP tools"
   }
 }

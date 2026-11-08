@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-google-drive",
+      "description": "Connect AI agents to Google Drive using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-google-drive/SKILL.md": "9f07fa89f7a3f993e8d555dca174f0036de43eeabafb61857282dc1ded5ed667"
+  }
+}
