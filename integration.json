@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "sourceRevision": "e7027c980c2bace978f4b17dfb69ce9c61539f2fe5eac33e3c9db8730bd09507",
+  "evidence": [
+    "Source-backed provider setup metadata",
+    "Offline configuration and MCP protocol tests"
+  ],
+  "provenance": [
+    "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"
+  ],
+  "id": "google-drive-mcp",
+  "kind": "mcp-setup",
+  "product": "pipmcp",
+  "title": "Google Drive MCP setup and connection checker",
+  "description": "Generate Google Drive MCP client configuration, inspect available tools and validate hosted endpoint access through PipMCP.",
+  "operationIds": [],
+  "appSlug": "google-drive",
+  "appName": "Google Drive",
+  "providerDocs": "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+  "providerWebsite": "https://drive.google.com/",
+  "authentication": {
+    "type": "oauth2_authorization_code",
+    "requiredCredentialFields": [
+      "client_id",
+      "client_secret",
+      "owner_authorization"
+    ],
+    "requiredHeaderNames": [],
+    "helpUrl": "https://developers.google.com/workspace/guides/create-credentials",
+    "tenantRequired": false,
+    "accountParameterNames": []
+  },
+  "attributionSlug": "github-google-drive-mcp"
+}
