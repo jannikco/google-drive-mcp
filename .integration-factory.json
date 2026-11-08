@@ -12,7 +12,7 @@
   "maintainer": "jannikco",
   "license": "MIT",
   "attributionSlug": "github-google-drive-mcp",
-  "sourceRevision": "9639e0ff30f36ee126c50c43050c581ba1bf5a6f3121500c55c0bc88f0a7a6c0",
+  "sourceRevision": "114154b01444d2de61fb87de3ac844fb733b2c68bea68bf370951b18383ccb3b",
   "qualityVersion": 2,
   "artifactType": "connector",
   "evidence": [
@@ -32,7 +32,7 @@
   "appName": "Google Drive",
   "connectorId": "google-drive",
   "executionAuthority": "pipmcp-gateway",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "agentReady": true,
   "capabilityEvidence": {
     "local": {

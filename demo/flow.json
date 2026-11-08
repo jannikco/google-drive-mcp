@@ -1,0 +1,53 @@
+{
+  "id": "stale-document-review",
+  "repositoryId": "google-drive-mcp",
+  "product": "pipmcp",
+  "connectorId": "google-drive",
+  "title": "Review stale Google Drive documents",
+  "promise": "Identify documents overdue for an owner review.",
+  "sourceRevision": "114154b01444d2de61fb87de3ac844fb733b2c68bea68bf370951b18383ccb3b",
+  "credential": "PIPMCP_API_KEY",
+  "transport": "pipmcp-gateway",
+  "sourceRefs": [
+    "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"
+  ],
+  "readTask": {
+    "intent": "Identify documents overdue for an owner review.",
+    "requiredCapability": "Read-only authorized account data; discover actual names and schemas first"
+  },
+  "synthetic": {
+    "strategy": "score",
+    "field": "daysSinceModification",
+    "value": 30,
+    "records": [
+      {
+        "id": "synthetic-file-a",
+        "name": "Synthetic onboarding guide",
+        "modifiedAt": "2026-09-01T00:00:00Z"
+      },
+      {
+        "id": "synthetic-file-b",
+        "name": "Synthetic weekly plan",
+        "modifiedAt": "2026-11-07T00:00:00Z"
+      }
+    ],
+    "input": {
+      "limit": 10
+    },
+    "normalization": "Invented normalized review fields demonstrate task logic; live provider schemas and field mappings must be reviewed separately.",
+    "expectedReviewCount": 1,
+    "asOf": "2026-11-08T00:00:00Z",
+    "normalize": {
+      "type": "elapsed-days",
+      "sourceField": "modifiedAt"
+    }
+  },
+  "livePolicy": {
+    "default": "preflight-only",
+    "explicitReadSelectionRequired": true,
+    "providerWritesAllowed": false,
+    "sandboxWritesRequireSeparateApproval": true
+  },
+  "baseSourceRevision": "9639e0ff30f36ee126c50c43050c581ba1bf5a6f3121500c55c0bc88f0a7a6c0",
+  "releaseVersion": "1.1.0"
+}
